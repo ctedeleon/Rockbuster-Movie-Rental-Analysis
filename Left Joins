@@ -1,0 +1,18 @@
+# Rockbuster_Movie_Rental_Analysis
+
+SELECT 
+language.name AS "Language",
+SUM(payment.amount) AS "Total Revenue"
+
+FROM language language 
+LEFT JOIN film film 
+ON language.language_id = film.language_id
+LEFT JOIN inventory inventory
+ON film.film_id = inventory.film_id
+LEFT JOIN rental rental 
+ON inventory.inventory_id = rental.inventory_id
+LEFT JOIN payment payment 
+ON rental.rental_id = payment.rental_id
+
+GROUP BY 1
+ORDER BY 2 
