@@ -1,0 +1,24 @@
+# Rockbuster_Movie_Rental_Analysis
+
+SELECT 
+customer.customer_id AS "Customer ID",
+customer.first_name AS "First Name",
+customer.last_name AS "Last Name",
+country.country AS "Country",
+city.city AS "City",
+SUM(payment.amount) AS "Total Paid"
+
+FROM customer customer
+INNER JOIN address address 
+ON customer.address_id = address.address_id
+INNER JOIN city city 
+ON address.city_id = city.city_id
+INNER JOIN country country
+ON city.country_id = country.country_id
+INNER JOIN payment payment 
+ON customer.customer_id = payment.customer_id
+
+WHERE city.city IN ('Aurora', 'Anpolis', 'Blumenau', 'Araatuba', 'Bag',
+'Belm', 'Aparecida de Goinia', 'Boa Vista', 'Braslia', 'Angra dos Reis')
+GROUP BY 1, 2, 3, 4, 5
+ORDER BY 6 DESC LIMIT 5
