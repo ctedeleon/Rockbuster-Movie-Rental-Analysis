@@ -1,0 +1,35 @@
+# Rockbuster_Movie_Rental_Analysis
+
+SELECT 
+COUNT(customer_id) AS "Number of Customers",
+COUNT(*) AS "Number of Records",
+
+MIN(customer_id) AS "MIN Customer ID",
+MAX(customer_id) AS "MAX Customer ID",
+AVG(customer_id) AS "AVG Customer ID",
+
+MIN(store_id) AS "MIN Store ID",
+MAX(store_id) AS "MAX Store ID",
+AVG(store_id) AS "AVG Store ID",
+
+MIN(address_id) AS "MIN Address ID",
+MAX(address_id) AS "MAX Address ID",
+AVG(address_id) AS "AVG Address ID",
+
+MIN(active) AS "MIN Active Acct.",
+MAX(active) AS "MAX Active Acct.",
+AVG(active) AS "AVG Active Acct.",
+
+mode() WITHIN GROUP (ORDER BY first_name) AS "First Name Mode",
+
+mode() WITHIN GROUP (ORDER BY last_name) AS "Last Name Mode",
+
+mode() WITHIN GROUP (ORDER BY email) AS "Email Mode",
+
+mode() WITHIN GROUP (ORDER BY activebool) AS "Activebool Mode",
+
+mode() WITHIN GROUP (ORDER BY create_date) AS "Create Date Mode",
+
+mode() WITHIN GROUP (ORDER BY last_update) AS "Last Update Mode"
+
+FROM customer 
