@@ -1,0 +1,28 @@
+# Rockbuster_Movie_Rental_Analysis
+
+--How many of the top 5 customers are based w/in ea. country
+SELECT DISTINCT (A.country), 
+		COUNT (DISTINCT D.customer_id) AS all_customer_count, 
+		COUNT (DISTINCT top_5_customers.customer_id) AS top_customer_count -- count each distinct customer
+FROM country A
+INNER JOIN city B
+	ON A.country_id = B.country_id
+INNER JOIN address C
+	ON B.city_id = C.city_id
+INNER JOIN customer D
+	ON C.address_id = D.address_id
+
+LEFT JOIN 
+	(SELECT A.customer_id, A.first_name, A.last_name, C.city, D.country, SUM(E.amount) AS total_amount_paid
+	FROM customer A
+	INNER JOIN address B ON A.address_id = B.address_id
+	INNER JOIN city C ON B.city_id = C.city_id
+	INNER JOIN country D ON C.country_id = D.country_id
+	INNER JOIN payment E ON A.customer_id = E.customer_id
+	WHERE C.city IN ('Aurora', 'Atlixco', 'Xintai', 'Adoni', 'Dhule (dhulia)', 'Kurashiki', 
+					 'Pingxiang', 'Sivas', 'Celaya', 'So Leopoldo')
+	GROUP BY A.customer_id, A.first_name, A.last_name, C.city, D.country
+	ORDER BY total_amount_paid DESC LIMIT 5) AS top_5_customers 
+ON A.country = top_5_customers.country --the "country" column in table A and table "top_5_customers" is the same
+GROUP BY A.country, top_5_customers.country
+ORDER BY top_customer_count DESC LIMIT 5
