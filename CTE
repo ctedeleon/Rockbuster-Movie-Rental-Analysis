@@ -2,7 +2,7 @@
 
 WITH top_customers_cte (country, all_customer_count, top_customer_count)
 AS
-(SELECT country.country, 
+(SELECT DISTINCT (country.country), 
 	COUNT (DISTINCT customer.customer_id) AS all_customer_count, 
 	COUNT(DISTINCT top_5_customers.customer_id) AS top_Customer_count
 FROM country country 
